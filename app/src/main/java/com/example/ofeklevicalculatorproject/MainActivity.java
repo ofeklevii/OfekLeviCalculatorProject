@@ -169,6 +169,11 @@ public class MainActivity extends AppCompatActivity {
             number = Float.parseFloat(str);
             resu = resu + number;
         }
+        if (oper.equals("*")) {
+            str = dataDisplay.getText().toString();
+            number = Float.parseFloat(str);
+            resu = resu * number;
+        }
         if (oper.equals("/")) {
             str = dataDisplay.getText().toString();
             number = Float.parseFloat(str);
@@ -181,11 +186,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else
             dataDisplay.setText(resu + "");
-        if (oper.equals("*")) {
-            str = dataDisplay.getText().toString();
-            number = Float.parseFloat(str);
-            resu = resu * number;
-        }
     }
 
     public void display2(View view) {
