@@ -45,32 +45,33 @@ public class MainActivity extends AppCompatActivity {
         str = "";
     }
 
-
     public void plus(View view) {
         str = dataDisplay.getText().toString();
         if (!str.isEmpty()) {
-            sum += 1;
+            sum = sum + 1;
             number = Float.parseFloat(str);
             if (oper.equals("-"))
                 resu = resu - number;
             else if (oper.equals("/")) {
                 if (number == 0)
                     dataDisplay.setText("Math ERROR");
-                else
-                    resu = resu / number;
-            } else if (oper.equals("*"))
+                resu = resu / number;
+            }
+            else if (oper.equals("*"))
                 resu = resu * number;
             else
                 resu = resu + number;
             oper = "+";
         }
-        dataDisplay.getHint();
         dataDisplay.setText("");
+        dataDisplay.getHint();
+
     }
+
     public void sub(View view) {
         str = dataDisplay.getText().toString();
         if (!str.isEmpty()) {
-            sum+=1;
+            sum = sum + 1;
             number = Float.parseFloat(str);
             if (oper.equals("+"))
                 resu = resu + number;
@@ -79,25 +80,25 @@ public class MainActivity extends AppCompatActivity {
                     dataDisplay.setText("Math ERROR");
                 else
                     resu = resu / number;
-            }
-            else if (oper.equals("*"))
+            } else if (oper.equals("*"))
                 resu = resu * number;
-            else if(sum==1)
-                if(oper.equals(""))
-                    resu=number;
+            else if (sum == 1)
+                if (oper.equals(""))
+                    resu = number;
                 else
-                    resu=Float.valueOf(-number);
+                    resu = Float.valueOf(-number);
             else
-                resu-=number;
+                resu -= number;
             oper = "-";
         }
-        dataDisplay.getHint();
         dataDisplay.setText("");
+        dataDisplay.getHint();
     }
+
     public void division(View view) {
         str = dataDisplay.getText().toString();
         if (!str.isEmpty()) {
-            sum += 1;
+            sum = sum + 1;
             number = Float.parseFloat(str);
             if (oper.equals("-"))
                 resu = resu - number;
@@ -115,13 +116,14 @@ public class MainActivity extends AppCompatActivity {
             }
             oper = "/";
         }
-        dataDisplay.getHint();
         dataDisplay.setText("");
+        dataDisplay.getHint();
     }
+
     public void multi(View view) {
         str = dataDisplay.getText().toString();
         if (!str.isEmpty()) {
-            sum += 1;
+            sum = sum + 1;
             number = Float.parseFloat(str);
             if (oper.equals("-"))
                 resu = resu - number;
@@ -138,12 +140,20 @@ public class MainActivity extends AppCompatActivity {
             }
             oper = "*";
         }
-        dataDisplay.getHint();
         dataDisplay.setText("");
+        dataDisplay.getHint();
+    }
+
+    public void restart(View view) {
+        resu = 0;
+        oper = "";
+        sum = 0;
+        dataDisplay.setText("");
+        dataDisplay.getHint();
     }
 
     public void equals(View view) {
-        if (oper.equals("-")){
+        if (oper.equals("-")) {
             str = dataDisplay.getText().toString();
             number = Float.parseFloat(str);
             resu = resu - number;
@@ -170,23 +180,14 @@ public class MainActivity extends AppCompatActivity {
             dataDisplay.setText(resu + "");
     }
 
-    public void restart(View view) {
-        sum = 0;
-        dataDisplay.setText("");
-        dataDisplay.getHint();
-        resu = 0;
-        oper = "";
-    }
-
-
-
     public void display2(View view) {
         Intent si = new Intent(this, MainActivity2.class);
-        if(dataDisplay.getText().toString().equals("Math ERROR"))
-            si.putExtra("math error","Math ERROR");
-        si.putExtra("number",resu );
+        if (dataDisplay.getText().toString().equals("Math ERROR"))
+            si.putExtra("math error", "Math ERROR");
+        si.putExtra("number", resu);
         startActivity(si);
     }
+}
 
 
 
