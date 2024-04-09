@@ -1,5 +1,6 @@
 package com.example.ofeklevicalculatorproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -63,10 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 resu = resu + number;
             oper = "+";
         }
-        dataDisplay.setText("");
         dataDisplay.getHint();
+        dataDisplay.setText("");
     }
-
     public void sub(View view) {
         str = dataDisplay.getText().toString();
         if (!str.isEmpty()) {
@@ -79,19 +79,119 @@ public class MainActivity extends AppCompatActivity {
                     dataDisplay.setText("Math ERROR");
                 else
                     resu = resu / number;
-            } else if (oper.equals("*"))
+            }
+            else if (oper.equals("*"))
                 resu = resu * number;
-
-
+            else if(sum==1)
+                if(oper.equals(""))
+                    resu=number;
+                else
+                    resu=Float.valueOf(-number);
+            else
+                resu-=number;
+            oper = "-";
         }
+        dataDisplay.getHint();
+        dataDisplay.setText("");
+    }
+    public void division(View view) {
+        str = dataDisplay.getText().toString();
+        if (!str.isEmpty()) {
+            sum += 1;
+            number = Float.parseFloat(str);
+            if (oper.equals("-"))
+                resu = resu - number;
+            else if (oper.equals("+"))
+                resu = resu + number;
+            else if (oper.equals("*"))
+                resu = resu + number;
+            else {
+                if (number == 0)
+                    dataDisplay.setText("Math ERROR");
+                else if (sum == 1)
+                    resu = number;
+                else
+                    resu = resu / number;
+            }
+            oper = "/";
+        }
+        dataDisplay.getHint();
+        dataDisplay.setText("");
+    }
+    public void multi(View view) {
+        str = dataDisplay.getText().toString();
+        if (!str.isEmpty()) {
+            sum += 1;
+            number = Float.parseFloat(str);
+            if (oper.equals("-"))
+                resu = resu - number;
+            else if (oper.equals("+"))
+                resu = resu + number;
+            else if (oper.equals("/")) {
+                if (number == 0)
+                    dataDisplay.setText("Math ERROR");
+                resu = resu / number;
+            } else {
+                if (sum == 1)
+                    resu = number;
+                resu = resu * number;
+            }
+            oper = "*";
+        }
+        dataDisplay.getHint();
+        dataDisplay.setText("");
+    }
+
+    public void equals(View view) {
+        if (oper.equals("-")){
+            str = dataDisplay.getText().toString();
+            number = Float.parseFloat(str);
+            resu = resu - number;
+        }
+        else if (oper.equals("+")) {
+            str = dataDisplay.getText().toString();
+            number = Float.parseFloat(str);
+            resu = resu + number;
+        }
+        else if (oper.equals("/")) {
+            str = dataDisplay.getText().toString();
+            number = Float.parseFloat(str);
+            if (number == 0)
+                dataDisplay.setText("Math ERROR");
+            resu = resu / number;
+            dataDisplay.setText(resu + "");
+        }
+        else if (oper.equals("*")) {
+            str = dataDisplay.getText().toString();
+            number = Float.parseFloat(str);
+            resu = resu * number;
+        }
+        else
+            dataDisplay.setText(resu + "");
     }
 
     public void restart(View view) {
-        sum=0;
+        sum = 0;
         dataDisplay.setText("");
-        resu=0;
-        oper="";
+        dataDisplay.getHint();
+        resu = 0;
+        oper = "";
     }
+
+
+
+    public void display2(View view) {
+        Intent si = new Intent(this, MainActivity2.class);
+        if(dataDisplay.getText().toString().equals("Math ERROR"))
+            si.putExtra("math error","Math ERROR");
+        si.putExtra("number",resu );
+        startActivity(si);
+    }
+
+
+
+   
+
 
 
 
