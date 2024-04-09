@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
             if (oper.equals("-"))
                 resu = resu - number;
             else if (oper.equals("/")) {
-                if (number == 0)
+                if (number != 0)
+                    resu = resu / number;
+                else
                     dataDisplay.setText("Math ERROR");
-                resu = resu / number;
             }
             else if (oper.equals("*"))
                 resu = resu * number;
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         }
         dataDisplay.setText("");
         dataDisplay.getHint();
-
     }
 
     public void sub(View view) {
@@ -76,21 +76,24 @@ public class MainActivity extends AppCompatActivity {
             if (oper.equals("+"))
                 resu = resu + number;
             else if (oper.equals("/")) {
-                if (number == 0)
-                    dataDisplay.setText("Math ERROR");
-                else
+                if (number != 0)
                     resu = resu / number;
-            } else if (oper.equals("*"))
-                resu = resu * number;
-            else if (sum == 1)
-                if (oper.equals(""))
-                    resu = number;
                 else
-                    resu = Float.valueOf(-number);
-            else
-                resu -= number;
-            oper = "-";
+                    dataDisplay.setText("Math ERROR");
+            }
+            else if (oper.equals("*"))
+                resu = resu * number;
+            else {
+                if (sum != 1)
+                    resu -= number;
+                else
+                    if (oper.equals(""))
+                        resu = number;
+                    else
+                        resu = Float.valueOf(-number);
+            }
         }
+        oper = "-";
         dataDisplay.setText("");
         dataDisplay.getHint();
     }
@@ -130,13 +133,16 @@ public class MainActivity extends AppCompatActivity {
             else if (oper.equals("+"))
                 resu = resu + number;
             else if (oper.equals("/")) {
-                if (number == 0)
+                if (number != 0)
+                    resu = resu / number;
+                else
                     dataDisplay.setText("Math ERROR");
-                resu = resu / number;
-            } else {
-                if (sum == 1)
+            }
+            else {
+                if (sum != 1)
+                    resu = resu * number;
+                else
                     resu = number;
-                resu = resu * number;
             }
             oper = "*";
         }
@@ -158,26 +164,28 @@ public class MainActivity extends AppCompatActivity {
             number = Float.parseFloat(str);
             resu = resu - number;
         }
-        else if (oper.equals("+")) {
+        if (oper.equals("+")) {
             str = dataDisplay.getText().toString();
             number = Float.parseFloat(str);
             resu = resu + number;
         }
-        else if (oper.equals("/")) {
+        if (oper.equals("/")) {
             str = dataDisplay.getText().toString();
             number = Float.parseFloat(str);
-            if (number == 0)
+            if (number != 0) {
+                resu = resu / number;
+                dataDisplay.setText(resu + "");
+            }
+            else
                 dataDisplay.setText("Math ERROR");
-            resu = resu / number;
-            dataDisplay.setText(resu + "");
         }
-        else if (oper.equals("*")) {
+        else
+            dataDisplay.setText(resu + "");
+        if (oper.equals("*")) {
             str = dataDisplay.getText().toString();
             number = Float.parseFloat(str);
             resu = resu * number;
         }
-        else
-            dataDisplay.setText(resu + "");
     }
 
     public void display2(View view) {
